@@ -43,23 +43,23 @@ Para ello hay que ir a la carpete core que está dentro de carpeta app, y una ve
 ## Exportar los componentes header y nav:
 Una vez que se han creado esos componentes, hay que exportarlos desde el core.module.ts dentro de la directiva @NgModule:
 
-@NgModule({
+`@NgModule({
   ...
   exports: [ HeaderComponent, NavComponent ]
 
-})
+})`
 
 ## Agregar el core en la App module:
 
 Se añaden los 
 
-import { CoreModule } from './core/core.module';
+`import { CoreModule } from './core/core.module';
 
 @NgModule({
   ...
   imports: [ CoreModule ]
 
-})
+})`
 
 ## Comproobar si funciona core:
 Se copia el selector del header y del nav component en app.component.html como si fuera una etiqueta personalizada.
