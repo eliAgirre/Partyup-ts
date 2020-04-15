@@ -66,8 +66,41 @@ import { CoreModule } from './core/core.module';
 })
 ```
 
-## Comproobar si funciona core:
+## Comprobar si funciona core:
 Se copia el selector del header y del nav component en app.component.html como si fuera una etiqueta personalizada.
+
+## Crear el modulo dashboard en app:
+
+`ng g module dashboard`<br>
+
+Después se generará un componente dentro del dashboard:<br>
+
+`ng g component dashboard --flat`<br>
+
+Para exportar el componente dashboard se escribe en el @NgModule dicho componente:<br>
+
+```ts
+
+@NgModule({
+  ...
+  exports: [ DashboardComponent ]
+
+})
+```
+
+Y se añade el modulo dashboard al app module:<br>
+
+```ts
+import { DashboardComponent } from './dashboard.component';
+
+
+@NgModule({
+  ...
+  imports: [ DashboardComponent ]
+
+})
+```
+
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
