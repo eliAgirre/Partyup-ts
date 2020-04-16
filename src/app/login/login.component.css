@@ -25,7 +25,7 @@
 .login_button {
   width: 80%;
   height: 50px;
-  background-color: #d94f5c;
+  background-color: #3386ff;
   margin: 20px auto;
   display: block;
   color: white;
@@ -38,12 +38,12 @@
 
 .login_button:hover {
   transition: .35s ease-in-out;
-  background-color: #993333;
+  background-color: #0066ff;
 }
 
 .login_button:active {
   transition: .35s ease-in-out;
-  background-color: #c64652;
+  background-color: #3386ff;
 }
 
 .create_icon {
