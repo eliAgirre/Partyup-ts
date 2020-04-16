@@ -38,8 +38,15 @@ export class PartyService {
   }
 
   getFavByAuthor(idAuthor: string, idParty: string): Observable<boolean>{
-    return this.httpClient.get(this.urlFav+"/"+idAuthor).pipe(
-      map(response => true),
+    return this.httpClient.get(this.urlFav + '/' + idAuthor).pipe(
+      map(response => {
+        let favorites: string[] = response['parties'];
+        if (favorites.indexOf(idParty) == -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }),
       catchError(this.handleError)
     );
   }

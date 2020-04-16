@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { from } from 'rxjs';
+
 import { PartyService } from '../shared/party/party.service';
 import { AuthorService } from '../shared/author/author.service';
 
@@ -23,7 +25,19 @@ export class DashboardComponent implements OnInit {
 
     //this.authorService.getAuthor('1').subscribe(author => console.log(author));
     //this.partyService.getParties().subscribe(parties => console.log(parties));
-    this.partyService.getParties().subscribe(parties => this.partyList = parties);
+    //this.party.getParties().subscribe(parties => this.partyList = parties);
+
+    this.partyService.getParties().subscribe(parties => {
+      from(parties).subscribe(party => {
+        this.authorService.getAuthor(party.author.id).subscribe(author => {
+          party.author = author;
+          this.partyService.getFavByAuthor('1', party.id).subscribe(favorite => {
+            party.favorite = favorite;
+            this.partyList.push(party);
+          });
+        });
+      });
+    });
 
   }
 
