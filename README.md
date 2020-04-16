@@ -207,6 +207,133 @@ Hay que añadir en el component dashboard html la siguiente etiqueta:
 <partyup-party-list></partyup-party-list>
 ```
 
+## Crear los componentes login y profile en la app:
+
+Crear los componentes en la carpeta app y ejecutar los siguientes comandos que generarán, html, css y los archivos .ts:<br>
+`ng g component login`
+`ng g component profile`
+
+
+## Crear el componente author-car dentro de la carpeta author que está en el shared:
+
+Crear los componentes en la carpeta app y ejecutar el siguiente comando:<br>
+`ng g component author-card`
+
+
+## Añadir rutas en la aplicación:
+
+Primero añadiremos una archivo para gestionar las rutas de la app. Dentro del app se creará un archivo llamado 'app-routing.module.ts' con el siguiente contenido:<br>
+
+```ts
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+
+const routes: Routes = [];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+```
+
+Después de crearán archivos para profile, dashboard y login. Cada uno tendrá un archivo llamado ''xxxxx-routing.module.ts'. Ahora veremos el código del achivo 'login-routing.module.ts' para visualizar la diferencia con la de app-routing:<br>
+
+```ts
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { LoginComponent } from './login.component';
+
+const loginRoutes: Routes = [
+    { path: 'login', component: LoginComponent },
+];
+
+@NgModule({
+    imports: [
+        RouterModule.forChild(loginRoutes)
+    ]
+})
+export class LoginRoutingModule { }
+
+```
+
+Para utilizar cada routing hay que importarlos en cada modulo correspondiente, por ejemplo en login module:<br>
+
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LoginRoutingModule } from './login-routing.module';
+
+import { LoginComponent } from './login.component';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    LoginRoutingModule
+  ],
+  declarations: [LoginComponent]
+})
+export class LoginModule { }
+
+```
+
+ Añadir routerLink al menu nav html:<br>
+
+```html
+<section class="section_menu">
+	<nav class="menu_nav">
+		<ul class="nav_list">
+			<li class="nav_list_item" routerLinkActive="nav_list_item-selected">
+				<a class="nav_list_link" routerLink="/dashboard">Party</a>
+			</li>
+			<li class="nav_list_item" routerLinkActive="nav_list_item-selected">
+				<a class="nav_list_link" routerLink="/profile">Perfil</a>
+			</li>
+		</ul>
+	</nav>
+</section>
+```
+ Para que las rutas funcionen deben importarse en core module:<br>
+
+```ts
+
+import { RouterModule} from '@angular/router';
+
+@NgModule({
+  ...
+  imports: [ RouterModule ]
+  ...
+})
+
+```
+
+Y por último hay que añadir los módulos al app module:
+
+```ts
+
+import { LoginModule } from './login/login.module';
+import { ProfileModule } from './profile/profile.module';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    LoginModule,
+    ProfileModule,
+    ...
+  ]
+})
+
+```
+
+
+
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
 Ejecutar `ng serve` <br>
