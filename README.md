@@ -332,7 +332,19 @@ import { ProfileModule } from './profile/profile.module';
 
 ```
 
+## JSON-Server como una API-REST:
 
+Se ha creado un archivo llamado 'db.json' que contiene datos de tipo JSON que hará de una base de datos. Al ejecutar dicho archivo obtendremos ciertos endpoints o url mediante http como get, post, delete... devolviendo una respuesta para utilizar esos datos en la aplicación.<br>
+
+Para instalar JSON-Server desde la consola o cmd hay que ejecutar el siguiente comando:<br>
+
+`npm install -g json-server`
+
+Una vez instalado, con el archivo 'db.json' se lanza el siguiente comando:<br>
+
+`json-server --watch db.json`
+
+Con ese comando se visualizan los endpoints a utilizar.
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
