@@ -101,6 +101,110 @@ import { DashboardComponent } from './dashboard.component';
 })
 ```
 
+## Componente party en shared:
+
+Ir a la carpeta shared, crear una carpeta party y entrar dentro de la carpeta para crear el componente party-card con `ng g component party-card`<br>
+
+Después de crearlo hay que hacer el export del dicho componente en shared module:
+
+```ts
+import { PartyCardComponent } from './party/party-card/party-card.component';
+
+
+@NgModule({
+  ...
+  exports: [ PartyCardComponent ]
+
+})
+```
+
+Y como este componente se va a utilizar en dashboard, en dashboard module hay que añadir lo siguiente:
+
+```ts
+import { SharedModule } from '../shared/shared.module';
+
+
+@NgModule({
+  ...
+  imports: [ SharedModule ]
+
+})
+```
+
+## Crear una clase dentro de la carpeta party:
+
+Ir a la carpeta party que está dentro de shared, y ejecutar el siguiente comando:<br>
+
+`ng g class party.model`<br>
+
+Después de añaden los atributos de dicha clase.<br>
+
+## Crear la clase Author en la carpeta author:
+
+Crear una carpeta dentro de shared llamada 'author', entrar dentro de la carpeta y ejecutar el comando:<br>
+
+`ng g class author.model`<br>
+
+Después de añaden los atributos de dicha clase, y se importa en la clase party ya que contiene un atributo de esta clase.<br>
+
+## Utilizar el modelo o clase party se importa en el componente party-card y en party-list:
+
+Componente party-card:<br>
+
+```ts
+import { Party } from '../party.model';
+
+...
+
+export class PartyCardComponent {
+
+  @Input() party: Party;
+
+}
+```
+
+Componente party-list:<br>
+
+```ts
+
+import { Component, OnInit } from '@angular/core';
+import { Party } from '../party.model';
+import { Author } from '../../author/author.model';
+
+...
+
+export class PartyListComponent implements OnInit {
+
+  text: string = 'Lorem ipsum dolor sit amet';
+  authors: Author[] = [];
+  parties: Party[] = [];
+
+  ngOnInit(){
+    this.authors.push(new Author(('1')));
+    this.parties.push(new Party('1', '', this.authors[0], this.text+" 1", '16/04/2020'));
+    this.parties.push(new Party('2', '', this.authors[0], this.text+" 2", '16/04/2020'));
+    this.parties.push(new Party('3', '', this.authors[0], this.text+" 3", '16/04/2020'));
+    this.parties.push(new Party('4', '', this.authors[0], this.text+" 4", '16/04/2020'));
+  }
+
+}
+
+```
+
+## Mostrar el array de party en el component party-list:
+
+<section class="party_card">
+  <partyup-party-card [party]="parties[0]"></partyup-party-card>
+  <partyup-party-card [party]="parties[1]"></partyup-party-card>
+  <partyup-party-card [party]="parties[2]"></partyup-party-card>
+  <partyup-party-card [party]="parties[3]"></partyup-party-card>
+</section>
+
+## Visualizar los party-cards:
+
+Hay que añadir en el component dashboard html la siguiente etiqueta:
+
+<partyup-party-list></partyup-party-list>
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
