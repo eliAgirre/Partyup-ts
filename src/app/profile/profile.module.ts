@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 
 import { ProfileComponent } from './profile.component';
+import { MyPartiesComponent } from './my-parties/my-parties.component';
+import { FavoritePartiesComponent } from './favorite-parties/favorite-parties.component';
 
 @NgModule({
   imports: [
@@ -13,6 +15,6 @@ import { ProfileComponent } from './profile.component';
     SharedModule,
     ProfileRoutingModule
   ],
-  declarations: [ProfileComponent]
+  declarations: [ProfileComponent, MyPartiesComponent, FavoritePartiesComponent]
 })
 export class ProfileModule { }
