@@ -210,7 +210,7 @@ Hay que añadir en el component dashboard html la siguiente etiqueta:
 ## Crear los componentes login y profile en la app:
 
 Crear los componentes en la carpeta app y ejecutar los siguientes comandos que generarán, html, css y los archivos .ts:<br>
-`ng g component login`
+`ng g component login`<br>
 `ng g component profile`
 
 
@@ -345,6 +345,166 @@ Una vez instalado, con el archivo 'db.json' se lanza el siguiente comando:<br>
 `json-server --watch db.json`
 
 Con ese comando se visualizan los endpoints a utilizar.
+
+## Crear servicios para author y para party:
+
+Para ello hay que ir a las carpetas correspondientes que están dentro de la carpeta shared y generar los servicios con el siguiente comando desde el terminal:<br>
+
+`ng g service author`<br>
+`ng g service party`<br>
+
+Después hay que importar la librería de httpClient, los observables y las operaciones de rxjs en cada servicio correspondiente, se pondrá como ejemplo el servicio author:<br>
+
+```ts
+
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+```
+
+Para que se utilicen dichos servicios hay que indicar en shared module de la siguiente forma:<br>
+
+```ts
+...
+import { PartyService } from './party/party.service';
+import { AuthorService } from './author/author.service';
+...
+
+@NgModule({
+  ...
+  providers: [PartyService, AuthorService],
+  ...
+})
+
+```
+
+Y por último hay que importar el http client en core module:<br>
+
+```ts
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  ...
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule
+  ],
+  ...
+})
+```
+
+## Ejemplo de observable y httpclient en el servicio party:
+
+Primero se declara el objeto httpClient en el constructor en el servicio, crear la url de los endpoints a utilizar y a realizar llamadas a la API:<br>
+
+```ts
+import { Author } from '../author/author.model';
+import { Party } from './party.model';
+
+export class PartyService {
+
+  // endpoints
+  private urlPartis: string = "http://localhost:3000/parties";
+  private urlFav: string = "http://localhost:3000/author-favorites";
+  
+  constructor( private httpClient: HttpClient ) { }
+
+  // llamadas GET
+  getParties(): Observable<Party[]>{
+
+    let parties: Party[] = [];
+
+    return this.httpClient.get(this.urlPartis).pipe(
+      map(dbPartyList => {
+        for (let i in dbPartyList) {
+          let party: Party = new Party(dbPartyList[i].id, 'localhost:4200/party/' + dbPartyList[i].id, new Author(dbPartyList[i].author), dbPartyList[i].content, dbPartyList[i].timestamp);
+          parties.push(party);
+        }
+        return parties;
+      }),
+      catchError(this.handleError)
+    );
+
+  }
+
+  getFavByAuthor(idAuthor: string, idParty: string): Observable<boolean>{
+    return this.httpClient.get(this.urlFav+"/"+idAuthor).pipe(
+      map(response => true),
+      catchError(this.handleError)
+    );
+  }
+
+  // method for errors
+  handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
+
+}
+```
+
+Para usar los servicios se importará en el dashboard component y después hay crear los objetos correspondientes del dicho servicio en el constructor en el método OnInit para realizar el suscribe de cada servicio:<br>
+
+```ts
+import { PartyService } from '../shared/party/party.service';
+import { AuthorService } from '../shared/author/author.service';
+
+import { Party } from '../shared/party/party.model';
+
+...
+
+export class DashboardComponent implements OnInit {
+
+  partyList: Party[] = [];
+
+  constructor(
+    private authorService: AuthorService,
+    private partyService: PartyService) { }
+
+  ngOnInit() {
+
+    //this.authorService.getAuthor('1').subscribe(author => console.log(author));
+    //this.partyService.getParties().subscribe(parties => console.log(parties));
+    this.partyService.getParties().subscribe(parties => this.partyList = parties);
+
+  }
+
+}
+```
+
+Después hay que pasar el partyList que se ha creado en el dashboardComponent al dashboard.html de la siguiente forma:<br>
+
+```html
+<partyup-party-list [parties]="partyList"></partyup-party-list>
+```
+
+Hay que editar el componente party-list, y quedará de la siguiente forma:<br>
+
+```ts
+import { Component, Input } from '@angular/core';
+
+import { Party } from '../party.model';
+import { Author } from '../../author/author.model';
+
+@Component({
+  selector: 'partyup-party-list',
+  templateUrl: './party-list.component.html',
+  styleUrls: ['./party-list.component.css']
+})
+export class PartyListComponent {
+
+  @Input() parties: Party[];
+
+}
+```
+
+
+
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
