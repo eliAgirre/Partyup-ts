@@ -503,8 +503,59 @@ export class PartyListComponent {
 }
 ```
 
+## Servicio de seguridad en core:
 
+Primero crearemos el servicio de seguridad en la carpeta core con el siguiente comando:<br>
 
+`ng g service auth-guard`<br>
+
+Primero se importará el interfaz a implementar:
+
+```ts
+import { CanActivate } from '@angular/router';
+
+export class AuthGuardService implements CanActivate {
+
+  constructor(
+    private router: Router
+  ) { }
+
+  canActivate() {
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+
+```
+
+Después se importa al module core:
+
+```ts
+
+import { AuthGuardService } from './auth-guard.service';
+
+@NgModule({
+  ...
+  providers: [AuthGuardService]
+  ...
+})
+
+```
+
+También se añadirá en el módulo de rutas dashboard de la siguiente forma:
+
+```ts
+import { AuthGuardService } from '../core/auth-guard.service';
+
+const dashboardRoutes: Routes = [
+    {
+      path: 'dashboard',
+      component: DashboardComponent,
+  --> canActivate: [AuthGuardService]
+    },
+];
+
+```
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
