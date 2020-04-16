@@ -191,14 +191,11 @@ export class PartyListComponent implements OnInit {
 
 ```
 
-## Mostrar el array de party en el component party-list:
+## Mostrar el array de party de forma dinámica con directivas estructurales en el component party-list:
 
 ```html
-<section class="party_card">
-  <partyup-party-card [party]="parties[0]"></partyup-party-card>
-  <partyup-party-card [party]="parties[1]"></partyup-party-card>
-  <partyup-party-card [party]="parties[2]"></partyup-party-card>
-  <partyup-party-card [party]="parties[3]"></partyup-party-card>
+<section *ngFor="let party of parties" class="party_list">
+  <partyup-party-card [party]="party"></partyup-party-card>
 </section>
 ```
 
@@ -213,5 +210,5 @@ Hay que añadir en el component dashboard html la siguiente etiqueta:
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
 Ejecutar `ng serve` <br>
-[Para visualizar en el navegador](https://localhost:4200/).
+[Para visualizar en el navegador](http://localhost:4200/).
 
