@@ -193,18 +193,22 @@ export class PartyListComponent implements OnInit {
 
 ## Mostrar el array de party en el component party-list:
 
+```html
 <section class="party_card">
   <partyup-party-card [party]="parties[0]"></partyup-party-card>
   <partyup-party-card [party]="parties[1]"></partyup-party-card>
   <partyup-party-card [party]="parties[2]"></partyup-party-card>
   <partyup-party-card [party]="parties[3]"></partyup-party-card>
 </section>
+```
 
 ## Visualizar los party-cards:
 
 Hay que añadir en el component dashboard html la siguiente etiqueta:
 
+```html
 <partyup-party-list></partyup-party-list>
+```
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
