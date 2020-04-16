@@ -3,11 +3,13 @@
   font-family: 'Robot', sans-serif;
 }
 
+
 body {
   margin: 0;
   height: 100%;
   width: 100%;
-  background-color: white;
+  /**background-color: white;
+  background-color: #ddd;*/
 }
 
 a, div, section, article, aside, header, footer {
@@ -15,8 +17,6 @@ a, div, section, article, aside, header, footer {
   margin: 0;
   padding: 0;
 }
-
-
 
 ul, li {
   margin: 0;
