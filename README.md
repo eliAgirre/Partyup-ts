@@ -557,6 +557,10 @@ const dashboardRoutes: Routes = [
 
 ```
 
+## Reactive Forms en Login:
+
+Si se añade el reactive forms en en el formulario de login de html, también es necesario editar el componente de login (importando los componentes de los formularios, añadiendo funciones y servicios)  y el modulo login (importar reactive forms module).
+
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
 Ejecutar `ng serve` <br>
