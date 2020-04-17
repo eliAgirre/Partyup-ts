@@ -577,7 +577,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Party } from './party/party.model';
 
 @Pipe({
-  name: 'shortBy',
+  name: 'sortBy',
   pure: false
 })
 export class ShortByPipe implements PipeTransform {
@@ -596,7 +596,7 @@ export class ShortByPipe implements PipeTransform {
 Y para utilizar este pipe se tendrá que editar el html de party-list:
 
 ```html
-<section *ngFor="let party of parties | shortBy" class="party_list">
+<section *ngFor="let party of parties | sortBy" class="party_list">
   <partyup-party-card [party]="party"></partyup-party-card>
 </section>
 ```
