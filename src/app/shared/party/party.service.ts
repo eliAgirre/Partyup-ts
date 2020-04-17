@@ -8,14 +8,16 @@ import { catchError, map } from 'rxjs/operators';
 import { Author } from '../author/author.model';
 import { Party } from './party.model';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PartyService {
 
   // endpoints
-  private urlPartis: string = "http://localhost:3000/parties";
-  private urlFav: string = "http://localhost:3000/author-favorites";
+  private urlParties: string = environment.url + 'parties';
+  private urlFav: string = environment.url + 'author-favorites';
 
   constructor( private httpClient: HttpClient ) { }
 
@@ -24,7 +26,7 @@ export class PartyService {
 
     let parties: Party[] = [];
 
-    return this.httpClient.get(this.urlPartis).pipe(
+    return this.httpClient.get(this.urlParties).pipe(
       map(dbPartyList => {
         for (let i in dbPartyList) {
           let party: Party = new Party(dbPartyList[i].id, 'localhost:4200/party/' + dbPartyList[i].id, new Author(dbPartyList[i].author), dbPartyList[i].content, dbPartyList[i].timestamp);
@@ -46,10 +48,49 @@ export class PartyService {
       'timestamp': party.timestamp
     };
 
-    return this.httpClient.post(this.urlPartis, dbParty).pipe(
+    return this.httpClient.post(this.urlParties, dbParty).pipe(
       catchError(this.handleError)
     );
   }
+
+  getAuthorParties(idAuthor: string): Observable<Party[]> {
+    let parties: Party[] = [];
+
+    return this.httpClient.get(this.urlParties).pipe(
+      map(dbPartyList => {
+        for (let i in dbPartyList) {
+          if (dbPartyList[i].author === idAuthor) {
+            let party: Party = new Party(dbPartyList[i].id, 'localhost:4200/party/' + dbPartyList[i].id, new Author(dbPartyList[i].author), dbPartyList[i].content, dbPartyList[i].timestamp);
+            parties.push(party);
+          }
+        }
+        return parties;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getFavoritesParties(idAuthor: string): Observable<any> {
+    return this.httpClient.get(this.urlFav + '/' + idAuthor).pipe(
+      map(dbFavorites => {
+        return dbFavorites['parties'];
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+
+  setFavoriteParties(idAuthor: string, partyList: any): Observable<any> {
+    let dbFavoriteParties: any = {
+      'id': idAuthor,
+      'parties': partyList
+    };
+
+    return this.httpClient.patch(this.urlFav + '/' + idAuthor, dbFavoriteParties).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   getFavByAuthor(idAuthor: string, idParty: string): Observable<boolean>{
     return this.httpClient.get(this.urlFav + '/' + idAuthor).pipe(

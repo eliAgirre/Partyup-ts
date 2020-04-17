@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'partyup-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
+export class NavComponent  {
 
-  constructor() { }
+  idAuthor: string = null;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthenticationService) { }
+
+  checkLogin() {
+    if (this.authService.token != null) {
+      this.idAuthor = this.authService.token.idAuthor;
+      return true;
+    }
+    this.idAuthor = null;
+    return false;
   }
 
 }

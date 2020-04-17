@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Author } from '../author.model';
 
 @Component({
   selector: 'partyup-author-card',
   templateUrl: './author-card.component.html',
   styleUrls: ['./author-card.component.css']
 })
-export class AuthorCardComponent implements OnInit {
+export class AuthorCardComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input() author: Author;
 
 }
