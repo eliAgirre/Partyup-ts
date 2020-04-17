@@ -1,4 +1,5 @@
 <section class="section-header">
   <h2 class="section_title" style="color:#3386ff">PartyUp</h2>
-  <button class="header_auth">Regístrate</button>
+  <button class="header_auth" *ngIf="!checkLogin()">Regístrate</button>
+  <button class="header_auth" *ngIf="checkLogin()" (click)="logOut()">Cerrar sesión</button>
 </section>

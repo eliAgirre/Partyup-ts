@@ -31,21 +31,29 @@
   "author-favorites": [
     {
       "id": "1",
-      "parties": ["T4qdo1483390015454"]
+      "parties": [
+        "T4qdo1483390015454"
+      ]
     },
     {
       "id": "2",
-      "parties": ["Mx5Cf1483389903318"]
+      "parties": [
+        "Mx5Cf1483389903318"
+      ]
     }
   ],
   "author-parties": [
     {
       "id": "1",
-      "parties": ["Mx5Cf1483389903318"]
+      "parties": [
+        "Mx5Cf1483389903318"
+      ]
     },
     {
       "id": "2",
-      "parties": ["T4qdo1483390015454"]
+      "parties": [
+        "T4qdo1483390015454"
+      ]
     }
   ]
 }
