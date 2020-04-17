@@ -13,6 +13,7 @@ import { Author } from './author.model';
 export class AuthorService {
 
   private urlAuthors: string = 'http://localhost:3000/authors';
+  private urFav: string = 'http://localhost:3000/author-favorites';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,6 +28,22 @@ export class AuthorService {
         author.url = 'http://localhost:4200/author/'+dbAuthor.id;
         return author;
       })
+    );
+  }
+
+  setAuthor(idAuthor: string, fullName: string, image: string): Observable<any> {
+    let dbAuthor: any = { 'id': idAuthor, 'fullName': fullName, 'image': image };
+
+    return this.httpClient.post(this.urlAuthors, dbAuthor).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  createFavorite(idAuthor: string): Observable<any> {
+    let dbAuthorFav: any = { 'id': idAuthor, 'parties': [] };
+
+    return this.httpClient.post(this.urFav, dbAuthorFav).pipe(
+      catchError(this.handleError)
     );
   }
 

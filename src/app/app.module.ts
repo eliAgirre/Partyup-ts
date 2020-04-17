@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { CreatePartyModule } from './create-party/create-party.module'
 import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
 
@@ -20,6 +21,7 @@ import { ProfileModule } from './profile/profile.module';
     LoginModule,
     ProfileModule,
     DashboardModule,
+    CreatePartyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { PartyService } from '../shared/party/party.service';
 import { AuthorService } from '../shared/author/author.service';
 
 import { Party } from '../shared/party/party.model';
+import { AuthenticationService } from '../core/authentication.service';
 
 @Component({
   selector: 'partyup-dashboard',
@@ -19,7 +20,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authorService: AuthorService,
-    private partyService: PartyService) { }
+    private partyService: PartyService,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
 
@@ -31,7 +34,7 @@ export class DashboardComponent implements OnInit {
       from(parties).subscribe(party => {
         this.authorService.getAuthor(party.author.id).subscribe(author => {
           party.author = author;
-          this.partyService.getFavByAuthor('1', party.id).subscribe(favorite => {
+          this.partyService.getFavByAuthor(this.authService.token.idAuthor, party.id).subscribe(favorite => {
             party.favorite = favorite;
             this.partyList.push(party);
           });

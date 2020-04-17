@@ -1,0 +1,17 @@
+<section class="main section_create_party">
+
+	<div class="create_party_box rubberBand">
+		<form class="create_party_form" [formGroup]="newPartyForm" (ngSubmit)="createParty(newPartyForm)">
+			<label><h3 class="create_party_label">Crea tu party:</h3></label>
+			<div class="create_party_error" *ngIf="newPartyForm.get('content').hasError('required') && !newPartyForm.get('content').pristine">
+				Un Party tiene que contener algún texto
+			</div>
+			<div class="create_party_error" *ngIf="newPartyForm.get('content').hasError('maxlength') && !newPartyForm.get('content').pristine">
+				Un Party sólo puede contener 140 letras como máximo
+			</div>
+			<textarea class="create_party_textarea" placeholder="Máximo 140 caracteres" formControlName="content"></textarea>
+			<button type="submit" class="create_party_button" [disabled]="newPartyForm.invalid">Publicar</button>
+		</form>
+	</div>
+
+</section>

@@ -5,11 +5,12 @@ import { AuthenticationService } from '../../core/authentication.service';
 import { AuthorService } from '../../shared/author/author.service';
 
 @Component({
-  selector: 'tweempus-signup',
+  selector: 'partyup-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
   newUserForm: FormGroup;
   userAlreadyExist: boolean = false;
 

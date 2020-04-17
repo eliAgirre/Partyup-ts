@@ -37,6 +37,20 @@ export class PartyService {
 
   }
 
+  setParty(party: Party): Observable<any> {
+    let dbParty: any = {
+      'id': party.id,
+      'author': party.author.id,
+      'by': party.author.fullName,
+      'content': party.content,
+      'timestamp': party.timestamp
+    };
+
+    return this.httpClient.post(this.urlPartis, dbParty).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getFavByAuthor(idAuthor: string, idParty: string): Observable<boolean>{
     return this.httpClient.get(this.urlFav + '/' + idAuthor).pipe(
       map(response => {

@@ -9,9 +9,31 @@
       "id": "2",
       "fullName": "David Teitelbaum",
       "image": "https://randomuser.me/api/portraits/men/82.jpg"
+    },
+    {
+      "id": "elisa",
+      "fullName": "elisa",
+      "image": "https://randomuser.me/api/portraits/women/29.jpg"
     }
   ],
-  "authenticated": [],
+  "authenticated": [
+    {
+      "id": "F2D5A1587126624565",
+      "author": "1"
+    },
+    {
+      "id": "571Jg1587126796716",
+      "author": "1"
+    },
+    {
+      "id": "FAAVp1587144346874",
+      "author": "elisa"
+    },
+    {
+      "id": "0CxX21587144450722",
+      "author": "elisa"
+    }
+  ],
   "parties": [
     {
       "id": "Mx5Cf1483389903318",
@@ -26,6 +48,13 @@
       "by": "David Teitelbaum",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur sodales libero, sit amet posuere arcu consectetur ut. Nam volutpat ligula ac nunc consectetur vestibulum.",
       "timestamp": "12-10-2016"
+    },
+    {
+      "id": "2",
+      "author": "elisa",
+      "by": "Author",
+      "content": "prueba",
+      "timestamp": "17-4-2020"
     }
   ],
   "author-favorites": [
@@ -40,6 +69,10 @@
       "parties": [
         "Mx5Cf1483389903318"
       ]
+    },
+    {
+      "id": "elisa",
+      "parties": []
     }
   ],
   "author-parties": [

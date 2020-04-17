@@ -71,9 +71,11 @@ Se copia el selector del header y del nav component en app.component.html como s
 
 ## Crear el modulo dashboard en app:
 
+Ir a la carpeta app y ejecutar el siguiente comando:<br>
+
 `ng g module dashboard`<br>
 
-Después se generará un componente dentro del dashboard:<br>
+Después hay que ir a la carpeta dashboard y con el siguiente comando se generará un componente dentro del dashboard:<br>
 
 `ng g component dashboard --flat`<br>
 
