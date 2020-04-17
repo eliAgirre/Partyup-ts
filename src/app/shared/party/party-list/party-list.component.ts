@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { Party } from '../party.model';
-import { Author } from '../../author/author.model';
 
 @Component({
   selector: 'partyup-party-list',

@@ -561,7 +561,45 @@ const dashboardRoutes: Routes = [
 
 ## Reactive Forms en Login:
 
-Si se añade el reactive forms en en el formulario de login de html, también es necesario editar el componente de login (importando los componentes de los formularios, añadiendo funciones y servicios)  y el modulo login (importar reactive forms module).
+Si se añade el reactive forms en en el formulario de login de html, también es necesario editar el componente de login (importando los componentes de los formularios, añadiendo funciones y servicios)  y el modulo login (importar reactive forms module).<br>
+
+## Crear pipes para ordenar las publicaciones parties:
+
+Crear con la siguiente instrucción en la carpeta shared el pipe para ordenar parties:<br>
+
+`ng g pipe short-by`<br>
+
+Después importaremos el modelo party, definiremos lo que hará el metodo transform, y quedaría de la siguiente forma:<br>
+
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+import { Party } from './party/party.model';
+
+@Pipe({
+  name: 'shortBy',
+  pure: false
+})
+export class ShortByPipe implements PipeTransform {
+
+  transform(array: Array<Party>): any {
+    if (array) {
+      return array.sort((a: Party, b: Party) => +a.timestamp.replace(/-/g, '') - +b.timestamp.replace(/-/g, ''))
+    } else {
+      return array;
+    }
+  }
+
+}
+```
+
+Y para utilizar este pipe se tendrá que editar el html de party-list:
+
+```html
+<section *ngFor="let party of parties | shortBy" class="party_list">
+  <partyup-party-card [party]="party"></partyup-party-card>
+</section>
+```
 
 ## Lanzar el servidor en local desde la raíz del proyecto:
 
